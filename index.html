@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhao Zhenglin - Personal Site</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #05a0f3;
+            --secondary: #0073b1;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --card-bg: #f8f9fa;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #4fc3f7;
+            --secondary: #29b6f6;
+            --text: #e1e9ee;
+            --text-light: #b0bec5;
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            filter: drop-shadow(0 0 4px rgba(79, 195, 247, 0.5));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            transition: var(--transition);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition), filter 0.3s ease;
+            transform-origin: center;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .profile-picture:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-info h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .profile-info p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .company {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .company:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .company-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .company-details p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .role {
+            margin-left: 60px;
+            margin-top: 1rem;
+        }
+
+        .role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-header h4 {
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .role-header p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .role ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+
+        .role li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .role li::before {
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: var(--card-bg);
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .skill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .skill-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .skill p {
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Navigation styles */
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                padding: 0;
+                justify-content: center;
+            }
+
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                justify-content: center;
+            }
+            
+            .skills-container {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+
+        /* Social links styles */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Animation classes */
+        .animate-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Zhao Zhenglin</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education-skills">Skills</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <main>
+            <section class="profile-card">
+                <img src="profile.jpeg" alt="Profile Picture" class="profile-picture">
+                <div class="profile-info">
+                    <h1>Zhao Zhenglin</h1>
+                    <p>Data Science | Python | SQL</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+(65) 98152381</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>zhaozhenglin0912@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="experience">
+                <h2>Experience</h2>
+
+                <div class="company">
+                    <img src="rec__logo.jpeg" alt="REC Logo" class="company-logo">
+                    <div class="company-details">
+                        <h3>REC Solar</h3>
+                        <p>Singapore | Full-time | 5 yrs 9 mos</p>
+                    </div>
+                </div>
+
+                <div class="role">
+                    <div class="role-header">
+                        <h4>Principal Engineer</h4>
+                        <p>Apr 2023 - Present</p>
+                    </div>
+                    <ul>
+                        <li>Designed a centralized platform to streamline manufacturing data cycles, encompassing high-dimensional data synthesis, storage, and integrated feature engineering.</li>
+                        <li>Developed machine learning pipelines for training and evaluating predictive models, enabling anomaly detection and preventive maintenance.</li>
+                        <li>Established a comprehensive visualization framework incorporating interactive dashboards and SPC models to facilitate real-time process monitoring, A/B testing evaluation, and model performance tracking.</li>
+                    </ul>
+                </div>
+
+                <div class="role">
+                    <div class="role-header">
+                        <h4>Lead Integration Engineer</h4>
+                        <p>Jul 2019 - Mar 2023</p>
+                    </div>
+                    <ul>
+                        <li>Transitioned legacy procedures to query-based ETL pipelines. Additionally, deployed an event-driven alerting system to drive proactive decision-making and operational responsiveness.</li>
+                        <li>Led training and mentorship programs on DOE, root cause analysis methodologies, and JSL scripting for engineering teams.</li>
+                    </ul>
+                </div>
+
+                <div class="company">
+                    <img src="micron.webp" alt="Micron Semiconductors Logo" class="company-logo">
+                    <div class="company-details">
+                        <h3>Micron Semiconductors</h3>
+                        <p>Singapore | Full-time | 3 yrs 9 mos</p>
+                    </div>
+                </div>
+
+                <div class="role">
+                    <div class="role-header">
+                        <h4>Senior Process Engineer</h4>
+                        <p>Aug 2016 - Apr 2019</p>
+                    </div>
+                    <ul>
+                        <li>Established a process cycle time and tool utilization monitoring platform, leveraging multidimensional data analysis to uncover optimization opportunities, achieving significant reduction in cycle time and huge improvement in tool utilization.</li>
+                    </ul>
+                </div>
+
+                <div class="role">
+                    <div class="role-header">
+                        <h4>Process Engineer</h4>
+                        <p>Aug 2015 - Jul 2016</p>
+                    </div>
+                    <ul>
+                        <li>Developed data-driven defect detection pipeline integrating domain expertise with time-series models to enhance anomaly identification and process control.</li>
+                        <li>Created centralized data lake by standardizing diverse data sources (equipment, process, metrology), enabling seamless cross-functional root cause analysis and process optimization.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+
+                <div class="company">
+                    <img src="mdp.png" alt="Data Analysis" class="company-logo">
+                    <div class="company-details">
+                        <h3>Manufacturing Data Platform</h3>
+                        <p>Python, SQL, PyTorch</p>
+                    </div>
+                </div>
+
+                <div class="role">
+                    <ul>
+                        <li>Developed a centralized data platform integrating multiple manufacturing data sources with real-time analytics capabilities</li>
+                        <li>Implemented machine learning models for predictive maintenance and quality control</li>
+                        <li>Created interactive dashboards for process monitoring and optimization</li>
+                    </ul>
+                </div>
+
+                <div class="company">
+                    <img src="quality-control.png" alt="Machine Learning" class="company-logo">
+                    <div class="company-details">
+                        <h3>Defect Detection System</h3>
+                        <p>Python, TensorFlow, OpenCV</p>
+                    </div>
+                </div>
+
+                <div class="role">
+                    <ul>
+                        <li>Built a computer vision system for automated defect detection in manufacturing</li>
+                        <li>Reduced inspection time by 80% while improving detection accuracy</li>
+                        <li>Integrated with existing manufacturing execution systems</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="education-skills">
+                <div class="bottom-row">
+                    <div class="bottom-section">
+                        <h2>Education</h2>
+                        <div class="company">
+                            <img src="nus.png" alt="NUS Logo" class="company-logo">
+                            <div class="company-details">
+                                <h3>Bachelor's Degree in Engineering</h3>
+                                <p>Chemical Engineering</p>
+                                <p>Aug 2011 - May 2015</p>
+                            </div>
+                        </div>
+                        <div class="role">
+                            <ul>
+                                <li>NUS Science and Technology Scholarship</li>
+                                <li>NUS Softball Athlete</li>
+                            </ul>
+                        </div>
+                    </div>
+ 
+                    <div class="bottom-section">
+                        <h2>Skills</h2>
+                        <div class="skills-container">
+
+
+                            <div class="skill">
+                                <img src="python.jpeg" class="skill-icon">
+                                <p>Python</p>
+                            </div>
+                            <div class="skill">
+                                <img src="mysql-logo.svg" class="skill-icon">
+                                <p>SQL</p>
+                            </div>
+                            <div class="skill">
+                                <img src="jmp.jpeg" class="skill-icon">
+                                <p>JMP</p>
+                            </div>
+                            <div class="skill">
+                                <img src="tibco.jpeg" class="skill-icon">
+                                <p>TIBCO</p>
+                            </div>
+                            <div class="skill">
+                                <img src="pytorch.png" class="skill-icon">
+                                <p>PyTorch</p>
+                            </div>
+                            <div class="skill">
+                                <img src="tensorflow.png" class="skill-icon">
+                                <p>TensorFlow</p>
+                            </div>
+                            <div class="skill">
+                                <img src="Matlab_Logo.png" class="skill-icon">
+                                <p>Matlab</p>
+                            </div>
+                            <div class="skill">
+                                <img src="pandas.png" class="skill-icon">
+                                <p>Pandas</p>
+                            </div>
+                            <div class="skill">
+                                <img src="data.jpeg" class="skill-icon">
+                                <p>Tableau</p>
+                            </div>
+                            <div class="skill">
+                                <img src="excel.png" class="skill-icon">
+                                <p>Excel</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/zhaozhenglin/" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:zhaozhenglin0912@gmail.com" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Zhao Zhenglin. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Add pulse animation
+            gsap.to(themeToggle, {
+                scale: 1.2,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => {
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+                    localStorage.setItem('theme', newTheme);
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animate elements in sequence
+            const elementsToAnimate = [
+                'header',
+                '.profile-card',
+                '#experience',
+                '#projects',
+                '#education-skills'
+            ];
+            
+            elementsToAnimate.forEach((selector, index) => {
+                const el = document.querySelector(selector);
+                if (el) {
+                    setTimeout(() => {
+                        el.classList.add('animate-in');
+                    }, index * 200);
+                }
+            });
+
+            // GSAP animations
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate company cards on scroll
+            gsap.utils.toArray('.company').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    },
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8,
+                    delay: i * 0.1
+                });
+            });
+            
+            // Animate skills on hover
+            const skills = document.querySelectorAll('.skill');
+            skills.forEach(skill => {
+                skill.addEventListener('mouseenter', () => {
+                    gsap.to(skill, {
+                        scale: 1.05,
+                        duration: 0.3
+                    });
+                });
+                
+                skill.addEventListener('mouseleave', () => {
+                    gsap.to(skill, {
+                        scale: 1,
+                        duration: 0.3
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
