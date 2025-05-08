@@ -293,6 +293,13 @@
             width: 100%;
         }
 
+        .visitor-map {
+            margin: 1rem auto;
+            text-align: center;
+            width: 200px; /* Default size for desktop - moderate size */
+            max-width: 100%; /* Ensures it doesn't overflow on very small screens */
+        }
+
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -316,6 +323,10 @@
             
             .skills-container {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .visitor-map {
+                width: 180px; /* Slightly smaller on tablets */
             }
         }
 
@@ -345,11 +356,8 @@
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
 
-        .visitor-map {
-            margin: 1rem auto;
-            text-align: center;
-            width: 100%;
-        }
+
+        
     </style>
 </head>
 <body>
