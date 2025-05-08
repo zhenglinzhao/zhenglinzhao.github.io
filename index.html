@@ -344,6 +344,12 @@
             transform: translateY(0) !important;
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+
+        .visitor-map {
+            margin: 1rem auto;
+            text-align: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -556,29 +562,9 @@
         </main>
 
         <footer>
-            <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=ddQHROGSoKzg1AR509EpRM82mMZNx7Oc1GRs4tLG3jI"></script>
-            <style>
-                /* Target the clustrmaps container */
-                #clustrmaps-widget-v2 {
-                    max-width: 100%;
-                    width: 180px; /* Default width */
-                    height: auto !important;
-                    margin: 0 auto; /* Center it horizontally */
-                }
-        
-                /* Make it responsive for different screen sizes */
-                @media (max-width: 768px) {
-                    #clustrmaps-widget-v2 {
-                        width: 150px;
-                    }
-                }
-        
-                @media (max-width: 480px) {
-                    #clustrmaps-widget-v2 {
-                        width: 120px;
-                    }
-                }
-            </style>
+            <div class="visitor-map" style="margin-top: auto; padding-top: 1.5rem;">
+                <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=ddQHROGSoKzg1AR509EpRM82mMZNx7Oc1GRs4tLG3jI"></script>
+            </div>
             <div class="social-links">
                 <a href="https://www.linkedin.com/in/zhaozhenglin/" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
